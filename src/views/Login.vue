@@ -36,6 +36,7 @@
 </template>
 
 <script>
+ import Cookie from 'js-cookie'
     export default {
         data() {
             return {
@@ -76,11 +77,19 @@
                 this.$refs['loginForm'].validate((valid) => {
                     if (valid) {
                         this.loading=true;
-                        setTimeout(() => {
-                            this.loading=false;
-                    this.$store.commit('changIsSignIn',1);
-                  this.$router.push({name:'home'});
-                        }, 1000);
+                        this.$axios.post('/api/user/login',this.loginForm).then(res=>{
+                                    let result = res.data
+                                if(result.code === 0) {
+                                    Cookie.set('token',result.token)
+                                    this.$store.commit('setToken',result.token)
+                                    this.$store.commit('changIsSignIn',1)
+                                    setTimeout(() => {
+                                        this.loading = false
+                                        this.$router.push({name:'home'}) 
+                                    }, 1500);
+                                }
+                        })
+     
              
                     } else {
                         console.log('error submit!!');
@@ -91,7 +100,11 @@
             signUp() {
                 this.$refs['regForm'].validate((valid) => {
                     if (valid) {
-                          console.log('submit');
+                     this.$axios.post('/api/user/register',this.regForm).then((res)=>{
+                                     console.log(res)
+                     }
+                   
+                     )
                     } else {
                         console.log('error submit!!');
                         return false;

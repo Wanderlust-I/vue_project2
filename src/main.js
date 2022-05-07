@@ -11,20 +11,29 @@ import '@/assets/font/iconfont.css'
 import '@/assets/scss/common.scss'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import axios from 'axios'
+import setAxios from './setAxios'
+import Cookie from 'js-cookie'
 
-
-
-
+ 
+setAxios();
 Vue.use(mavonEditor)
 Vue.use(ElementUI)
-
+Vue.prototype.$axios=axios
 router.beforeEach((to,from,next)=>{
-  let token='asdda';
-  if(token){
+  store.commit('setToken',Cookie.get('token'))
+  if(store.state.token){
     store.commit('changIsSignIn',1)
   }
-  next();
-
+  if(to.meta.requireAuth){
+    if(store.state.token){
+      next()
+    }else{
+      next({path:'/login'})
+    }
+  }else{
+    next()
+  }
 })
 
 Vue.config.productionTip = false

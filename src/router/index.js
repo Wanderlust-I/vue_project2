@@ -19,21 +19,33 @@ const routes = [
     },
     {
       path:'/person',
-      component:() => import('@/views/Person.vue')
+      component:() => import('@/views/Person.vue'),
+      meta:{
+        requireAuth:true//代表这个页面需要登录权限
+      }
     },
     {
       path:'/article',
-      component:() => import('@/views/Article.vue')
+      component:() => import('@/views/Article.vue'),
+      meta:{
+        requireAuth:true//true为这个页面需要登录权限
+      }
     },
     {
       path:'/article/edit',
       name:'editArticle',
-      component:() => import('@/views/ArticleEdit.vue')
+      component:() => import('@/views/ArticleEdit.vue'),
+      meta:{
+        requireAuth:true//true为这个页面需要登录权限
+      }
     },
     {
       path:'/article/edit/:id',
       name:'updateArticle',
       component:() => import('@/views/ArticleEdit.vue'),
+      meta:{
+        requireAuth:true//true为这个页面需要登录权限
+      }
     }
   ],
     },

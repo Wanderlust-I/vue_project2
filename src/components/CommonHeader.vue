@@ -9,34 +9,34 @@
           <el-menu
             mode="horizontal"
             class="nav"
-            :default-active="activeIndex"
+            :default-active="$route.path"
             @select="handleSelect"
             background-color="#2d2d2d"
             text-color="#9d9d9d"
             active-text-color="#fff"
           >
-            <el-menu-item  index="1">
+            <el-menu-item  index="/">
               <router-link to="/"
                 ><i class="iconfont icon-home"></i>⾸⻚</router-link
               >
             </el-menu-item>
-            <el-menu-item index="2"  v-if='isSignIn===0'>
+            <el-menu-item index="/blog"  v-if='isSignIn===0'>
               <router-link to="/blog">博文</router-link>
             </el-menu-item>
-               <el-menu-item index="2"  v-else-if='isSignIn===1' > 
+               <el-menu-item index="/article"  v-else-if='isSignIn===1' > 
               <router-link to="/article">我的博文</router-link>
             </el-menu-item>
-            <el-menu-item index="3">
-              <router-link to="/">杂谈</router-link>
+            <el-menu-item index="/otherblog">
+              <router-link to="/otherblog">杂谈</router-link>
             </el-menu-item>
-            <el-menu-item index="4">
-              <router-link  to="/">画廊</router-link>
+            <el-menu-item index="/photoWall">
+              <router-link  to="/photoWall">画廊</router-link>
             </el-menu-item>
-              <el-menu-item index="5" v-if='isSignIn===0'>
+              <el-menu-item index="/login" v-if='isSignIn===0'>
               <router-link class="signBtn" to="/login">登录</router-link>
             </el-menu-item>
              </el-menu-item>
-              <el-menu-item index="5" v-else-if='isSignIn===1'>
+              <el-menu-item index="/person" v-else-if='isSignIn===1'>
               <router-link class="signBtn" to="/person">admin</router-link>
             </el-menu-item>
           </el-menu>
